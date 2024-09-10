@@ -11,6 +11,12 @@
 
 ---
 
+## Demo
+
+[![YouTube](http://i.ytimg.com/vi/Pv0dODCdRko/hqdefault.jpg)](https://www.youtube.com/watch?v=Pv0dODCdRko)
+
+---
+
 ## Installation Guide
 
 ### Prerequisites
@@ -26,9 +32,9 @@
 
 1. **Clone the Repository**:  
    If you have Git installed, open a terminal or command prompt and run the following command to clone the extension's source code to your machine:
-   ```bash
+   '''bash
    git clone https://github.com/lunathanael/EECS_281_Party.git
-   ```
+   '''
 
 2. **Open Chrome's Extensions Page**:  
    In **Google Chrome**, type `chrome://extensions/` in the address bar and press **Enter**. This will open Chrome's **Extensions** management page.

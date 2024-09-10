@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "EECS 281 Confetti Party",
+  "version": "1.0",
+  "description": "Throws a confetti party when your submission passes all tests.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://eecs281ag.eecs.umich.edu/assignment/*"],
+      "js": ["content.js", "lib/confetti.browser.min.js"]
+    }
+  ],
+  "action": {
+    "default_icon": "confetti128.png",
+    "default_popup": "popup.html",
+    "default_title": "Confetti Settings"
+  },
+  "icons": {
+    "128": "confetti128.png"
+  }
+}

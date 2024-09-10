@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confetti Party Settings</title>
+  <style>
+    body {
+      text-align: center;
+    }
+    .slider-container {
+      margin: 10px 0;
+    }
+    .slider-label {
+      display: inline-block;
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Confetti Settings</h1>
+
+  <div class="slider-container">
+    <label class="slider-label">Particles:</label>
+    <input type="range" id="particles" min="10" max="500" value="150">
+    <span id="particles-value">150</span>
+  </div>
+
+  <div class="slider-container">
+    <label class="slider-label">Spread:</label>
+    <input type="range" id="spread" min="10" max="400" value="200">
+    <span id="spread-value">200</span>
+  </div>
+
+  <div class="slider-container">
+    <label class="slider-label">Size:</label>
+    <input type="range" id="size" min="1" max="20" value="12">
+    <span id="size-value">12</span>
+  </div>
+
+  <div class="slider-container">
+    <label class="slider-label">Duration:</label>
+    <input type="range" id="duration" min="100" max="1000" value="300">
+    <span id="duration-value">300</span>
+  </div>
+
+  <button id="saveBtn">Save Settings</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>

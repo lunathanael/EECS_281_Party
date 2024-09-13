@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "EECS 281 Confetti Party",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Throws a confetti party when your submission passes all tests.",
   "permissions": [
     "storage",

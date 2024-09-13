@@ -44,7 +44,7 @@ function checkAllPass() {
 
             // Check if the background color is green
             const bgColor = window.getComputedStyle(cell).backgroundColor;
-            if (bgColor !== 'rgb(47, 133, 90)') { // Assuming this is green
+            if (bgColor !== 'rgb(47, 133, 90)' && bgColor != 'rgb(104, 211, 145)') { // Assuming this is green
                 allGreen = false; // If any cell is not green, set flag to false
             }
         }

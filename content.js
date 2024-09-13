@@ -55,7 +55,7 @@ function checkAllPass() {
             let storeObj = {};
             storeObj[firstCellText] = 'yay';
             chrome.storage.sync.set(storeObj, function() {
-                console.log('Yay result saved for:', firstCellText);
+                // console.log('Yay result saved for:', firstCellText);
 
                 // Trigger confetti for celebration
                 triggerConfetti();

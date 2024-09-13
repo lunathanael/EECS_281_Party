@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         size: size,
         duration: duration
       }, function () {
-        console.log('Settings saved.');
+        // console.log('Settings saved.');
       });
     });
   });

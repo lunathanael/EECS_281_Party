@@ -107,8 +107,21 @@ async function processTableRows() {
     const rows = table.querySelectorAll("tr");
 
     // Debug logging for row detection
-    console.log("rows", rows);
-    console.log("rows length", rows.length);
+    // console.log("rows", rows);
+    // console.log("rows length", rows.length);
+
+    // Get color and percentage preferences from storage
+    const settings = await chrome.storage.sync.get([
+        'includeTestDetails',
+        'switchToPercentage',
+        'textColor',
+        'bgColor'
+    ]);
+
+    const includeDetails = settings.includeTestDetails === undefined ? true : settings.includeTestDetails;
+    const usePercentage = settings.switchToPercentage === undefined ? true : settings.switchToPercentage;
+    const textColorValue = settings.textColor || '#E8E4E8';
+    const bgColorValue = settings.bgColor || '#19202C';
 
     for (const row of rows) {
         // Find submission timestamp link in row
@@ -126,8 +139,8 @@ async function processTableRows() {
                 throw new Error(response.error);
             }
 
-            // Debug logging for response data
-            console.log("response.data", response.data);
+            // // Debug logging for response data
+            // console.log("response.data", response.data);
 
             // Parse test case results from response
             const testCaseData = extractTestCaseData(response.data);
@@ -135,12 +148,12 @@ async function processTableRows() {
             // Create new row for detailed test case information
             const newRow = document.createElement("tr");
             newRow.style.height = "20px";
-            newRow.style.backgroundColor = "black";
+            newRow.style.backgroundColor = bgColorValue;
 
             // Add empty cells for first 3 columns (matching header structure)
             for (let i = 0; i < 3; i++) {
                 const cell = document.createElement("td");
-                cell.style.backgroundColor = "black";
+                cell.style.backgroundColor = bgColorValue;
                 newRow.appendChild(cell);
             }
 
@@ -158,7 +171,7 @@ async function processTableRows() {
                 const cell = document.createElement("td");
                 const data = testCaseMap.get(i);
                 if (data) {
-                    formatCell(cell, headerCells[i].textContent.trim(), data);
+                    formatCell(cell, headerCells[i].textContent.trim(), data, settings);
                 }
                 newRow.appendChild(cell);
             }
@@ -171,10 +184,19 @@ async function processTableRows() {
     }
 }
 
-function formatCell(cell, testCase, data) {
+function formatCell(cell, testCase, data, settings) {
     // Style cell and display runtime/memory information
-    cell.style.backgroundColor = "black";
-    cell.textContent = `${data.runtime}/${data.timeLimit}s, ${data.memory}/${data.memoryLimit}kb`;
+    cell.style.backgroundColor = settings.bgColor || '#19202C';
+
+    if (settings.switchToPercentage) {
+        const runtimePercent = (data.runtime / data.timeLimit * 100).toFixed(1);
+        const memoryPercent = (data.memory / data.memoryLimit * 100).toFixed(1);
+        cell.textContent = `${runtimePercent}% ${memoryPercent}%`;
+    } else {
+        cell.textContent = `${data.runtime}/${data.timeLimit}s, ${data.memory}/${data.memoryLimit}kb`;
+    }
+
+    cell.style.color = settings.textColor || '#E8E4E8';
 }
 
 function extractTestCaseData(fileText) {
@@ -204,7 +226,7 @@ function waitForTableInitial() {
         if (table) {
             clearInterval(intervalId);
             await processTableRows();
-            console.log("processed table rows");
+            //  console.log("processed table rows");
         }
     };
 

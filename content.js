@@ -200,8 +200,16 @@ function formatCell(cell, testCase, data, settings) {
 }
 
 function extractTestCaseData(fileText) {
-    // Regular expression to match test case results pattern
-    const testCaseRegex = /Test case ([\w-]+): (Passed|Failed)\s+Runtime \(sec\): ([\d.]+)\/([\d.]+)\s+Memory \(kb\): (\d+)\/(\d+)/g;
+    // Regular expression broken down into named parts for clarity
+    const testCasePattern = [
+        /Test case ([\w-]+):\s+(Passed|Failed)\s+/,           // Test case name and status
+        /Runtime \(sec\): ([\d.]+)\/([\d.]+)/,                // Runtime values
+        /(?:\s+\(time exceeded by a factor of [\d.]+\))?\s+/, // Optional time exceeded message
+        /Memory \(kb\): (\d+)\/(\d+)/,                        // Memory values
+        /(?:\s+\(memory exceeded by a factor of [\d.]+\))?\s+/, // Optional memory exceeded message
+    ].map(r => r.source).join('');
+
+    const testCaseRegex = new RegExp(testCasePattern, 'g');
     const data = {};
     let match;
 
